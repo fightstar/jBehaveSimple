@@ -12,8 +12,9 @@
   <properties>
     <jbehave.core.version>3.9</jbehave.core.version>
     <jbehave.site.version>3.1.1</jbehave.site.version>
-    <embeddables>**/*Story.java</embeddables>
+    <embeddables>**/*Stories.java</embeddables>
     <webdriver.version>2.39.0</webdriver.version>
+      <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
   <dependencies>
@@ -21,25 +22,21 @@
       <groupId>org.jbehave</groupId>
       <artifactId>jbehave-core</artifactId>
       <version>${jbehave.core.version}</version>
+      <scope>test</scope>
     </dependency>
       <dependency>
           <groupId>org.seleniumhq.selenium</groupId>
           <artifactId>selenium-java</artifactId>
           <version>${webdriver.version}</version>
+          <scope>test</scope>
       </dependency>
   </dependencies>
 
   <build>
+    <testSourceDirectory>${basedir}/src/test/java</testSourceDirectory>
     <resources>
       <resource>
-        <directory>src/main/java</directory>
-        <filtering>true</filtering>
-        <excludes>
-          <exclude>**/*.java</exclude>
-        </excludes>
-      </resource>
-      <resource>
-        <directory>src/main/resources</directory>
+        <directory>${basedir}/src/test/java</directory>
         <filtering>true</filtering>
       </resource>
     </resources>
@@ -54,42 +51,59 @@
             <target>1.7</target>
           </configuration>
         </plugin>
+          <!--<plugin>-->
+              <!--<groupId>org.apache.maven.plugins</groupId>-->
+              <!--<artifactId>maven-surefire-plugin</artifactId>-->
+              <!--<version>2.12.3</version>-->
+              <!--<configuration>-->
+                  <!--<includes>-->
+                      <!--<include>**/*Story.java</include>-->
+                  <!--</includes>-->
+              <!--</configuration>-->
+          <!--</plugin>-->
       </plugins>
     </pluginManagement>
+
     <plugins>
-      <plugin>
-        <groupId>org.jbehave</groupId>
-        <artifactId>jbehave-maven-plugin</artifactId>
-        <version>${jbehave.core.version}</version>
-        <executions>
-          <execution>
-            <id>unpack-view-resources</id>
-            <phase>process-resources</phase>
-            <goals>
-              <goal>unpack-view-resources</goal>
-            </goals>
-          </execution>
-          <execution>
-            <id>embeddable-stories</id>
-            <phase>integration-test</phase>
-            <configuration>
-              <includes>
-                <include>${embeddables}</include>
-              </includes>
-              <excludes />
-              <ignoreFailureInStories>false</ignoreFailureInStories>
-              <ignoreFailureInView>false</ignoreFailureInView>
-              <threads>1</threads>
-              <metaFilters>
-                <metaFilter></metaFilter>
-              </metaFilters>
-            </configuration>
-            <goals>
-              <goal>run-stories-as-embeddables</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
+        <plugin>
+            <groupId>org.jbehave</groupId>
+            <artifactId>jbehave-maven-plugin</artifactId>
+            <version>${jbehave.core.version}</version>
+            <executions>
+                <execution>
+                    <id>unpack-view-resources</id>
+                    <phase>process-resources</phase>
+                    <goals>
+                        <goal>unpack-view-resources</goal>
+                    </goals>
+                </execution>
+                <execution>
+                    <id>embeddable-stories</id>
+                    <phase>integration-test</phase>
+                    <configuration>
+                        <includes>
+                            <include>${embeddables}</include>
+                        </includes>
+                        <excludes/>
+                        <systemProperties>
+                            <property>
+                                <name>file.encoding</name>
+                                <value>${project.build.sourceEncoding}</value>
+                            </property>
+                        </systemProperties>
+                        <ignoreFailureInStories>false</ignoreFailureInStories>
+                        <ignoreFailureInView>false</ignoreFailureInView>
+                        <threads>1</threads>
+                        <metaFilters>
+                            <metaFilter/>
+                        </metaFilters>
+                    </configuration>
+                    <goals>
+                        <goal>run-stories-as-embeddables</goal>
+                    </goals>
+                </execution>
+            </executions>
+        </plugin>
     </plugins>
   </build>
 
