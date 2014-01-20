@@ -8,8 +8,7 @@ import java.util.Map;
  */
 public class StoryContext {
 
-    public static final String STORY_CLASS_NAME = "STORY_CLASS_NAME";
-    private Map<String, Object> context = new HashMap<>();
+    private Map<String, Object> context = new HashMap<String, Object>();
 
     public Object get(String key) {
         return context.get(key);

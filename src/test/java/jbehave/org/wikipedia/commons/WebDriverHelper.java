@@ -14,7 +14,9 @@ public class WebDriverHelper {
     }
 
     public void startDriver() {
-        driver = new FirefoxDriver();
+        if (driver == null) {
+            driver = new FirefoxDriver();
+        }
     }
 
     public WebDriver getDriver() {

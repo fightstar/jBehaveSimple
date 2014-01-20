@@ -13,11 +13,12 @@ import static org.openqa.selenium.support.PageFactory.initElements;
  * Created by Alex.
  */
 public class WikipediaGivenSteps extends AbstractSteps {
+
     public static final String WIKIPEDIA_TITLE = "Wikipedia";
     public static final String WIKIPEDIA_MAIN_PAGE = "http://www.wikipedia.org/";
 
     public WikipediaGivenSteps(WebDriver driver, StoryContext context) {
-        super(driver,context);
+        super(driver, context);
     }
 
     @Given("open Wikipedia main page")

@@ -10,8 +10,8 @@ public abstract class AbstractSteps {
     protected StoryContext context;
     protected WebDriver driver;
 
-    public AbstractSteps(WebDriver webDriver, StoryContext storyContext) {
-        driver = webDriver;
-        context = storyContext;
+    public AbstractSteps(WebDriver driver, StoryContext context) {
+        this.driver = driver;
+        this.context = context;
     }
 }
